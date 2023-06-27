@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Trang web của bạn</title>
+  <style>
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      overflow: hidden;
+      position: relative;
+      background-color: #000000;
+    }
+
+    .image-container {
+      position: relative;
+      width: 800px;
+      height: 600px;
+      overflow: hidden;
+    }
+
+    .image-container img {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: 0.5;
+      transition: opacity 0.5s ease;
+    }
+
+    .image-container img.active {
+      opacity: 1;
+    }
+
+    .arrow-button {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 40px;
+      height: 40px;
+      background-color: rgba(0, 0, 0, 0.5);
+      border-radius: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: white;
+      font-size: 24px;
+      cursor: pointer;
+      z-index: 2;
+    }
+
+    .arrow-button.left {
+      left: 10px;
+    }
+
+    .arrow-button.right {
+      right: 10px;
+    }
+  </style>
+</head>
+<body>
+  <div class="image-container">
+    <img class="active" src="https://cdn.discordapp.com/attachments/941273632217387008/1117807381452169229/untitled__MG_1904.jpg" alt="Ảnh 1">
+    <img src="https://cdn.discordapp.com/attachments/941273632217387008/1117807381871603753/untitled__MG_1905.jpg" alt="Ảnh 2">
+    <img src="https://cdn.discordapp.com/attachments/941273632217387008/1117807397310836806/the_1-2474.jpg" alt="Ảnh 3">
+    <img src="https://cdn.discordapp.com/attachments/941273632217387008/1117807398200037486/the_1-2477.jpg" alt="Ảnh 2">
+    <img src="https://cdn.discordapp.com/attachments/941273632217387008/1117807399399604314/the_1-2872.jpg" alt="Ảnh 3">
+    <img src="https://cdn.discordapp.com/attachments/941273632217387008/1117807400095862886/the_1-2879.jpg" alt="Ảnh 2">
+    <img src="https://cdn.discordapp.com/attachments/941273632217387008/1117807401026994197/the_1-2884.jpg" alt="Ảnh 3">
+    <img src="https://cdn.discordapp.com/attachments/941273632217387008/1117807401710661672/the_2-0917.jpg" alt="Ảnh 2">
+    <img src="https://cdn.discordapp.com/attachments/941273632217387008/1117807401710661672/the_2-0917.jpg" alt="Ảnh 3">
+    <img src="https://cdn.discordapp.com/attachments/941273632217387008/1117807403078004818/the_2-0922.jpg" alt="Ảnh 2">
+    <img src="https://cdn.discordapp.com/attachments/941273632217387008/1117807404428574720/the_2-3611.jpg" alt="Ảnh 3">
+    <img src="https://cdn.discordapp.com/attachments/941273632217387008/1117807404428574720/the_2-3611.jpg" alt="Ảnh 2">
+    <img src="https://cdn.discordapp.com/attachments/941273632217387008/1117807405774942318/untitled__MG_1900.jpg" alt="Ảnh 3">
+    <!-- Thêm các ảnh khác tương tự -->
+  </div>
+
+  <div class="arrow-button left">&#8249;</div>
+  <div class="arrow-button right">&#8250;</div>
+
+  <script>
+    var currentIndex = 0;
+    var images = document.querySelectorAll('.image-container img');
+    var maxIndex = images.length - 1;
+
+    function showImage(index) {
+      currentIndex = index;
+      images.forEach(function(image, i) {
+        if (i === currentIndex) {
+          image.style.opacity = 1;
+          image.style.zIndex = 2;
+        } else {
+          image.style.opacity = 0.5;
+          image.style.zIndex = 1;
+        }
+      });
+    }
+
+    document.querySelector('.arrow-button.left').addEventListener('click', function() {
+      var newIndex = (currentIndex - 1 + images.length) % images.length;
+      showImage(newIndex);
+    });
+
+    document.querySelector('.arrow-button.right').addEventListener('click', function() {
+      var newIndex = (currentIndex + 1) % images.length;
+      showImage(newIndex);
+    });
+
+    document.addEventListener('keydown', function(event) {
+      if (event.key === 'ArrowRight') {
+        var newIndex = (currentIndex + 1) % images.length;
+        showImage(newIndex);
+      } else if (event.key === 'ArrowLeft') {
+        var newIndex = (currentIndex - 1 + images.length) % images.length;
+        showImage(newIndex);
+      }
+    });
+
+    showImage(currentIndex);
+  </script>
+</body>
+</html>

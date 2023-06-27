@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Trang web của bạn</title>
+  <style>
+    body {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      height: 100vh;
+      overflow: hidden;
+      position: relative;
+      background-color: #000000;
+    }
+
+    .image-container {
+      position: relative;
+      width: 800px;
+      height: 600px;
+      overflow: hidden;
+      margin-bottom: 20px;
+    }
+
+    .image-container img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0;
+  transition: opacity 0.5s ease;
+  z-index: 1;
+}
+
+.image-container img.active {
+  opacity: 1;
+  z-index: 2;
+}
+
+
+    .thumbnails {
+      display: flex;
+      justify-content: center;
+    }
+
+    .thumbnails img {
+      width: 100px;
+      height: 75px;
+      object-fit: cover;
+      opacity: 0.5;
+      transition: opacity 0.5s ease;
+      cursor: pointer;
+    }
+
+    .thumbnails img.active {
+      opacity: 1;
+    }
+
+    .arrow-button {
+      position: absolute;
+      top: calc(50% - 20px);
+      width: 40px;
+      height: 40px;
+      background-color: rgba(255, 255, 255, 0.5);
+      border-radius: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: black;
+      font-size: 24px;
+      cursor: pointer;
+      z-index: 2;
+    }
+
+    .arrow-button.left {
+      left: 10px;
+    }
+
+    .arrow-button.right {
+      right: 10px;
+    }
+  </style>
+</head>
+<body>
+  <div class="image-container">
+    <img class="active" src="https://cdn.discordapp.com/attachments/941273632217387008/1117807196776972288/the_2-1092.jpg" alt="Ảnh 1">
+    <img src="https://cdn.discordapp.com/attachments/941273632217387008/1117807213646463006/the_1-2982.jpg" alt="Ảnh 2">
+    <img src="https://cdn.discordapp.com/attachments/941273632217387008/1117807214560809061/the_2-0954.jpg" alt="Ảnh 3">
+    <img src="https://cdn.discordapp.com/attachments/941273632217387008/1117807215433228428/the_2-0956.jpg" alt="Ảnh 2">
+    <img src="https://cdn.discordapp.com/attachments/941273632217387008/1117807217345826937/the_2-1442.jpg" alt="Ảnh 3">
+    <img src="https://cdn.discordapp.com/attachments/941273632217387008/1117807218994200696/the_2-3313.jpg" alt="Ảnh 2">
+    <img src="https://cdn.discordapp.com/attachments/941273632217387008/1117807220965515325/untitled__MG_1852.jpg" alt="Ảnh 3">
+    <img src="https://cdn.discordapp.com/attachments/941273632217387008/1117807220462194849/untitled__MG_1849.jpg" alt="Ảnh 2">
+    <img src="https://cdn.discordapp.com/attachments/941273632217387008/1117807216381136956/the_2-0959.jpg" alt="Ảnh 3">
+    <img src="https://cdn.discordapp.com/attachments/941273632217387008/1117807219984048170/untitled__MG_1845.jpg" alt="Ảnh 2">
+  </div>
+
+  <div class="thumbnails">
+    <img class="active" src="https://cdn.discordapp.com/attachments/941273632217387008/1117807196776972288/the_2-1092.jpg" alt="Ảnh 1">
+    <img src="https://cdn.discordapp.com/attachments/941273632217387008/1117807213646463006/the_1-2982.jpg" alt="Ảnh 2">
+    <img src="https://cdn.discordapp.com/attachments/941273632217387008/1117807214560809061/the_2-0954.jpg" alt="Ảnh 3">
+    <img src="https://cdn.discordapp.com/attachments/941273632217387008/1117807215433228428/the_2-0956.jpg" alt="Ảnh 2">
+    <img src="https://cdn.discordapp.com/attachments/941273632217387008/1117807217345826937/the_2-1442.jpg" alt="Ảnh 3">
+    <img src="https://cdn.discordapp.com/attachments/941273632217387008/1117807218994200696/the_2-3313.jpg" alt="Ảnh 2">
+    <img src="https://cdn.discordapp.com/attachments/941273632217387008/1117807220965515325/untitled__MG_1852.jpg" alt="Ảnh 3">
+    <img src="https://cdn.discordapp.com/attachments/941273632217387008/1117807220462194849/untitled__MG_1849.jpg" alt="Ảnh 2">
+    <img src="https://cdn.discordapp.com/attachments/941273632217387008/1117807216381136956/the_2-0959.jpg" alt="Ảnh 3">
+    <img src="https://cdn.discordapp.com/attachments/941273632217387008/1117807219984048170/untitled__MG_1845.jpg" alt="Ảnh 2">
+  </div>
+
+  <div class="arrow-button left">&#8249;</div>
+  <div class="arrow-button right">&#8250;</div>
+
+  <script>
+    var currentIndex = 0;
+    var images = document.querySelectorAll('.image-container img');
+    var thumbnails = document.querySelectorAll('.thumbnails img');
+    var maxIndex = images.length - 1;
+
+    function showImage(index) {
+      currentIndex = index;
+      images.forEach(function(image, i) {
+        if (i === index) {
+          image.classList.add('active');
+        } else {
+          image.classList.remove('active');
+        }
+      });
+      thumbnails.forEach(function(thumbnail, i) {
+        if (i === index) {
+          thumbnail.classList.add('active');
+        } else {
+          thumbnail.classList.remove('active');
+        }
+      });
+    }
+
+    function showNextImage() {
+      if (currentIndex < maxIndex) {
+        showImage(currentIndex + 1);
+      } else {
+        showImage(0);
+      }
+    }
+
+    function showPreviousImage() {
+      if (currentIndex > 0) {
+        showImage(currentIndex - 1);
+      } else {
+        showImage(maxIndex);
+      }
+    }
+
+    document.querySelector('.arrow-button.left').addEventListener('click', showPreviousImage);
+    document.querySelector('.arrow-button.right').addEventListener('click', showNextImage);
+
+    thumbnails.forEach(function(thumbnail, index) {
+      thumbnail.addEventListener('click', function() {
+        showImage(index);
+      });
+    });
+
+    showImage(currentIndex);
+  </script>
+</body>
+</html>
